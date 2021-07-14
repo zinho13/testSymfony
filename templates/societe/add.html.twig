@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des sociétés{% endblock %}
+
+{% block body %}
+
+    <div class="row pt-4 pl-5">
+        <a class="btn btn-sm btn-danger" href="{{ path('societe') }}">Liste</a>
+    </div>
+
+    <div class="row p-4">
+        {{ form_start(formSociete, {'attr' : {'class':'add-codePost-form col-md-8'}}) }}
+            {{form_row(formSociete.nom,{'label' : 'Nom du société', 'attr' : {'class':'form-control'}})}}
+            {{form_row(formSociete.description,{'label' : 'Description', 'attr' : {'class':'form-control'}})}}
+            {{form_row(formSociete.type,{'label' : 'Type'})}}
+            {{form_row(formSociete.code_postal,{'label' : 'Code Postal', 'attr' : {'class':'form-control'}})}}
+            {{form_row(formSociete.ville,{'label' : 'Ville', 'attr' : {'class':'form-control'}})}}
+            <div class="pt-4">
+                <button type="submit" class="btn btn-sm btn-success">
+                    {% if isEdit %}Mettre à jour{% else %}Enregistrer{% endif %}
+                </button>
+                <a class="btn btn-sm btn-danger" href="{{ path('societe') }}">Annuler</a>
+            </div>
+        {{ form_end(formSociete) }}
+    </div>
+
+{% endblock %}

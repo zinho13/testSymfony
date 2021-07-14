@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des codes postale{% endblock %}
+
+{% block body %}
+
+    <div class="row pl-4">
+        <a class="btn btn-sm btn-danger" href="{{ path('code_postal') }}">Liste</a>
+    </div>
+
+    <div class="row p-4">
+        {{ form_start(formVille, {'attr' : {'class':'add-codePost-form col-md-8'}}) }}
+            {{form_row(formVille.libelle,{'label' : 'Nom du ville', 'attr' : {'class':'form-control'}})}}
+            {{form_row(formVille.code_postal,{'label' : 'Code Postal', 'attr' : {'class':'form-control'}})}}
+            <div class="pt-4">
+                <button type="submit" class="btn btn-sm btn-success">
+                    {% if isEdit %}Mettre à jour{% else %}Enregistrer{% endif %}
+                </button>
+                <a class="btn btn-sm btn-danger" href="{{ path('ville') }}">Annuler</a>
+            </div>
+        {{ form_end(formVille) }}
+    </div>
+
+{% endblock %}

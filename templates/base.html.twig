@@ -2,23 +2,97 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+        <title>{% block title %}Home{% endblock %}</title>
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
             {#{{ encore_entry_link_tags('app') }}#}
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+            <style>
+                body {
+                    background-color: #f2f4f8;
+                    padding-bottom: 50px;
+                }
+
+                #collapsibleNavbar {
+                    justify-content: flex-end;
+                    padding-right: 70px;
+                }
+
+                .logo {
+                    padding-left: 80px;
+                }
+                
+                .sub-bar {
+                    border: 1px solid #000;
+                    background-color: #000;
+                    width: 300px;
+                    height: 5px;
+                }
+
+                tr {
+                    height: 45px;
+                }
+
+                .nav-item {
+                    margin: 0 7px;
+                }
+
+                .nav-link {
+                    color: #fff !important;
+                    border-bottom: 2px solid transparent;
+                }
+
+                .nav-link:hover,
+                .active,
+                .nav-link:focus {
+                    color: #fff !important;
+                    text-decoration: none;
+                    border-bottom: 2px solid #fff;
+                }
+
+                .btn-societe,
+                .btn-dirigeant {
+                    padding: 0 10px;
+                }
+
+                .tab-content {
+                    background-color: #fff;
+                    border-radius: 5px;
+                }
+
+                .select-content {
+                    margin: auto;
+                }
+
+                .nav-items {
+                    margin-right: 0;
+                    padding-top: 8px;
+                    list-style-type: none;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .add-codePost-form {
+                    margin: auto;
+                    background-color: #fff;
+                    padding: 15px;
+                    border-radius: 5px;
+                }
+
+                .hide {
+                    display: none;
+                }
+            </style>
         {% endblock %}
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
     </head>
     <body>
         <nav class="navbar navbar-expand-md bg-dark navbar-dark">
         <!-- Brand -->
-        <a class="navbar-brand" href="{{ path('home') }}">Test</a>
+        <a class="navbar-brand logo" href="{{ path('home') }}"><Span style="color:red">Zi</span>Dev</a>
 
         <!-- Toggler/collapsibe Button -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -27,35 +101,45 @@
 
         <!-- Navbar links -->
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav navbar-right nav-items">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('home') }}">Acceuil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('dirigeants') }}">Dirigeant</a>
+                    <a class="nav-link" href="{{ path('dirigeant') }}">Dirigeant</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('societes') }}">Société</a>
+                    <a class="nav-link" href="{{ path('societe') }}">Société</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('type_societes') }}">Type</a>
+                    <a class="nav-link" href="{{ path('type_societe') }}">Type société</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('villes') }}">Ville</a>
+                    <a class="nav-link" href="{{ path('ville') }}">Ville</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('code_postals') }}">Code postale</a>
+                    <a class="nav-link" href="{{ path('code_postal') }}">Code postale</a>
                 </li>
             </ul>
         </div>
         </nav>
 
-        <div class="container-fluid">
+        <div class="container pt-5">
+            <div class="row p-2 d-block text-center">
+                <div class="base-title-content d-block">
+                    <h1> {{ page_title }} </h1>
+                </div>
+                <div class="d-block sub-bar m-auto"></div>
+            </div>
+
             {% block body %}{% endblock %}
         </div>
 
-        <script src="{{asset("js/jquery.min.js")}}"></script>
-        <script src="{{asset("js/bootstrap.min.js")}}"></script>
-        <script src="{{asset("js/style.js")}}"></script>
+        {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+            <script src="{{asset("js/jquery-3.4.1.min.js")}}"></script>
+            <script src="{{asset("js/bootstrap.min.js")}}"></script>
+            <script src="{{asset("js/script.js")}}"></script>
+        {% endblock %}
     </body>
 </html>

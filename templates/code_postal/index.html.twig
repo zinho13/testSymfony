@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des codes postale{% endblock %}
+
+{% block body %}
+
+    <div class="row pl-4 pt-5">
+        <a class="btn btn-sm btn-primary" href="{{ path('add_code_postal') }}">Ajouter</a>
+    </div>
+
+    <div class="row message-content">
+        {% for label, messages in app.flashes(['success', 'danger']) %}
+            {% for message in messages %}
+                <div class="flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+    <div class="row p-4">
+        <table class="table table-hover table-responsive-lg col-md-8">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    {# <th>Ville</th> #}
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                    {% for codePostal in codePostals %}
+                        <tr>
+                            <td>{{ codePostal.libelle }}</td>
+                            {# <td>ville</td> #}
+                            <td>
+                                <a class="btn btn-sm btn-light" href="{{ path('edit_code_postal', {'id': codePostal.id}) }}">Edit</a>
+                                <a class="btn btn-sm btn-danger"  onclick="confirm('Are you sure?'')" href="{{ path('delete_code_postal', {'id': codePostal.id}) }}">Delete</a>
+                                {# {{ form(delete_form, {'attr': {'onclick': 'return confirm("Are you sure?")'}}) }} #}
+                            </td>
+                        </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création type societé{% endblock %}
+
+{% block body %}
+
+    <div class="row pl-4">
+        <a class="btn btn-sm btn-danger" href="{{ path('dirigeant') }}">Liste</a>
+    </div>
+
+    <div class="row p-4">
+        {{ form_start(formDirigeant, {'attr' : {'class':'add-codePost-form col-md-8'}}) }}
+            {{form_row(formDirigeant.nom,{'label' : 'Nom', 'attr' : {'class':'form-control'}})}}
+            {{form_row(formDirigeant.prenom,{'label' : 'Prénom', 'attr' : {'class':'form-control'}})}}
+            {{form_row(formDirigeant.email,{'label' : 'E-mail', 'attr' : {'class':'form-control'}})}}
+            {{form_row(formDirigeant.sexe,{'label' : 'Sexe'})}}
+            <div class="pt-4">
+                <button type="submit" class="btn btn-sm btn-success">
+                    {% if isEdit %}Mettre à jour{% else %}Enregistrer{% endif %}
+                </button>
+                <a class="btn btn-sm btn-danger" href="{{ path('dirigeant') }}">Annuler</a>
+            </div>
+        {{ form_end(formDirigeant) }}
+    </div>
+
+{% endblock %}

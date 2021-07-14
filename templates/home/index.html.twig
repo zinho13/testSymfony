@@ -1,19 +1,145 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Acceuil{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{# {{ dump(baseUrl) }} #}
 
-<div class="example-wrapper">
+  <input type="hidden" class="form-control" id="baseUrl" value="{{ baseUrl }}">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/projet/INGENOSYA/testSymfony/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/projet/INGENOSYA/testSymfony/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="row p-4">
+        <div class="col-md-8 select-content">
+            <select id="selectForm" class="form-control">
+                <option value="0">Selectionner un formulaire</options>
+                <option value="societe">Société</options>
+                <option value="dirigeant">Dirigeant</options>
+            </select>
+        </div>
+    </div>
+
+    {# formulaire d'ajout et d'edition #}
+
+    <div class="row p-4 hide" id="formDirigeantContent">
+        {{ form_start(formDirigeant, {'attr' : {'class':'add-codePost-form col-md-8'}}) }}
+            <div class="form-group">
+                {{form_row(formDirigeant.nom,{'label' : 'Nom du dirigeant', 'attr' : {'class':'form-control', 'placeholder' : 'nom du dirigeant'}})}}
+            </div>
+            <div class="form-group">
+                {{form_row(formDirigeant.prenom,{'label' : 'Prénom', 'attr' : {'class':'form-control'}})}}
+            </div>
+            <div class="form-group">
+                {{form_row(formDirigeant.email,{'label' : 'E-mail', 'attr' : {'class':'form-control', 'placeholder' : '@example.com'}})}}
+            </div>
+            <div class="form-group">
+                {{form_row(formDirigeant.sexe,{'label' : 'Sexe'})}}
+            </div>
+            <div class="pt-4">
+                <button type="submit" class="btn btn-sm btn-success btn-save-d">
+                    {% if isEdit %}Mettre à jour{% else %}Enregistrer{% endif %}
+                </button>
+                {# <a class="btn btn-sm btn-danger" href="{{ path('dirigeant') }}">Annuler</a> #}
+                <a class="btn btn-sm btn-danger btn-abort">Annuler</a>
+            </div>
+        {{ form_end(formDirigeant) }}
+    </div>
+
+    <div class="row p-4 hide" id="formSocieteContent">
+        {{ form_start(formSociete, {'attr' : {'class':'add-codePost-form col-md-8'}}) }}
+            <div class="form-group">
+                {{form_row(formSociete.nom,{'label' : 'Nom du société', 'attr' : {'class':'form-control', 'id' : 'nom_société'}})}}
+            </div>
+            <div class="form-group">
+                {{form_row(formSociete.description,{'label' : 'Description', 'attr' : {'class':'form-control', 'id' : 'description'}})}}
+            </div>
+            <div class="form-group">
+                {{form_row(formSociete.type,{'label' : 'Type', 'id' : 'type'})}}
+            </div>
+            <div class="form-group">
+                {{form_row(formSociete.code_postal,{'label' : 'Code Postal', 'attr' : {'class':'form-control', 'id' : 'code_postal'}})}}
+            </div>
+            <div class="form-group ">
+                {{form_row(formSociete.ville,{'label' : 'Ville', 'attr' : {'class':'form-control kl_ville', 'id' : 'ville'}})}}
+            </div>
+            <div class="pt-3">
+                <button type="submit" class="btn btn-sm btn-success btn-save-s">
+                    {% if isEdit %}Mettre à jour{% else %}Enregistrer{% endif %}
+                </button>
+                {# <a class="btn btn-sm btn-danger" href="{{ path('societe') }}">Annuler</a> #}
+                <a class="btn btn-sm btn-danger btn-abort">Annuler</a>
+            </div>
+        {{ form_end(formSociete) }}
+    </div>
+
+    {# table liste des societe #}
+
+    <hr class="separator">
+
+    <div class="row p-4  tab-content">
+        <h4 class="">Liste des sociétés</h4>   
+        <table class="table table-hover table-sm table-responsive-lg col-md-12">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Code postal</th>
+                    <th>Ville</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                    {% for societe in societes %}
+                    {# {{ dump(societe.type) }} #}
+                        <tr>
+                            <td>{{ societe.nom }}</td>
+                            <td>{{ societe.description }}</td>
+                            <td>
+                                {% for type in societe.type %}
+                                    {{ type.nom }},
+                                {% endfor %}
+                            </td>
+                            <td>{{societe.codepostal.libelle}}</td>
+                            <td>{{ societe.ville.libelle }}</td>
+                            <td>
+                                <a class="btn btn-sm btn-light btn-societe" href="{{ path('edit_societe', {'id': societe.id}) }}">Edit</a>
+                                <a class="btn btn-sm btn-danger btn-societe"  onclick="confirm('Are you sure?'')" href="{{ path('delete_societe', {'id': societe.id}) }}">Delete</a>
+                                {# {{ form(delete_form, {'attr': {'onclick': 'return confirm("Are you sure?")'}}) }} #}
+                            </td>
+                        </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <hr class="separator">
+
+    <div class="row p-4 tab-content">
+        <h4 class="">Liste des dirigeants</h4>
+        <table class="table table-hover table-sm table-responsive-lg col-md-12">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>E-mail</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                    {% for dirigeant in dirigeants %}
+                    {# {{ dump(ville) }} #}
+                        <tr>
+                            <td>{{ dirigeant.nom }}</td>
+                            <td>{{ dirigeant.prenom }}</td>
+                            <td>{{ dirigeant.email }}</td>
+                            <td>
+                                <a class="btn btn-sm btn-light btn-dirigeant" href="{{ path('edit_dirigeant', {'id': dirigeant.id}) }}">Edit</a>
+                                <a class="btn btn-sm btn-danger btn-dirigeant"  onclick="confirm('Are you sure?'')" href="{{ path('delete_dirigeant', {'id': dirigeant.id}) }}">Delete</a>
+                                {# {{ form(delete_form, {'attr': {'onclick': 'return confirm("Are you sure?")'}}) }} #}
+                            </td>
+                        </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 {% endblock %}
