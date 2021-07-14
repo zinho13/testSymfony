@@ -29,7 +29,6 @@ class HomeController extends AbstractController
                             Dirigeant $dirigeants = null,
                             Societe $societes = null): Response
     {
-        // dd($repoVille->findVilleByCodePostal(1));
         $isEdit = true;
 
         if (!$dirigeants) {
@@ -128,7 +127,7 @@ class HomeController extends AbstractController
             $manager->persist($dirigeants);
             $manager->flush();
 
-            return $this->redirectToRoute('dirigeant');
+            return $this->redirectToRoute('home');
         }
 
         if ($formSociete->isSubmitted() && $formSociete->isValid()) {
@@ -140,7 +139,7 @@ class HomeController extends AbstractController
             $manager->persist($societes);
             $manager->flush();
 
-            return $this->redirectToRoute('societe');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('/home/index.html.twig', [
@@ -150,5 +149,19 @@ class HomeController extends AbstractController
             'formDirigeant' => $formDirigeant->createView(),
             'formSociete' => $formSociete->createView()
         ]);
+    }
+
+    /**
+     * @Route("/home/delete-dirigeant/{id}", name="h_delete_dirigeant")
+     */
+    public function deleteDirigeant(Request $request,
+                                        EntityManagerInterface $manager,
+                                        Dirigeant $dirigeant): Response
+    {
+        $manager->remove($dirigeant);
+        $manager->flush();
+        $this->addFlash('danger', 'élement a été supprimé');
+        
+        return $request;
     }
 }

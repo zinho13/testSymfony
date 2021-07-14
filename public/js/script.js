@@ -39,28 +39,40 @@ $(document).ready(function() {
         $('#formDirigeantContent').addClass('hide');
     });
 
-    $(document).on('click', '.btn-save-s', function(){
-        var baseUrl = $('#baseUrl').val();
+    // $(document).on('click', '.btn-dirigeant-delete', function(){
+    //     var idDirigeant = $('#idDirigeant').val();
+    //     $.ajax({
+    //         type: "post",
+    //         url: baseUrl+"home/delete-dirigeant/"+idDirigeant,
 
-        var dataField = {
-            nom : $('#nom_société').val(),
-            description : $('#description').val(),
-            type : $('#type').val(),
-            code_postal : $('#code_postal').val(),
-            ville : $('#ville').val()
-        };
-        console.log(dataField);
+    //         success: function(res) {
+    //             console.log(res);            
+    //         }
+    //     });
+    // });
 
-        // $.ajax({
-        //     type: "post",
-        //     url: baseUrl + "home",
-        //     data: dataField,
+    // $(document).on('click', '.btn-save-s', function(){
+    //     var baseUrl = $('#baseUrl').val();
 
-        //     success: function(data) {
-        //       console.log(data);
+    //     var dataField = {
+    //         nom : $('#nom_société').val(),
+    //         description : $('#description').val(),
+    //         type : $('#type').val(),
+    //         code_postal : $('#code_postal').val(),
+    //         ville : $('#ville').val()
+    //     };
+    //     console.log(dataField);
+
+    //     $.ajax({
+    //         type: "post",
+    //         url: baseUrl + "home",
+    //         data: dataField,
+
+    //         success: function(data) {
+    //           console.log(data);
             
-        //     }
-        // });
-    });
+    //         }
+    //     });
+    // });
 
 });

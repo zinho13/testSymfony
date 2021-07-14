@@ -57,7 +57,7 @@ class DirigeantController extends AbstractController
             $manager->persist($dirigeants);
             $manager->flush();
 
-            return $this->redirectToRoute('dirigeant');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('dirigeant/add.html.twig', [
@@ -79,6 +79,6 @@ class DirigeantController extends AbstractController
         $manager->flush();
         $this->addFlash('danger', 'élement a été supprimé');
         
-        return $this->redirectToRoute('dirigeant');
+        return $this->redirectToRoute('home');
     }
 }

@@ -55,7 +55,7 @@ class SocieteController extends AbstractController
             $manager->persist($societes);
             $manager->flush();
 
-            return $this->redirectToRoute('societe');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('societe/add.html.twig', [
@@ -76,6 +76,6 @@ class SocieteController extends AbstractController
         $manager->flush();
         $this->addFlash('danger', 'élement a été supprimé');
         
-        return $this->redirectToRoute('societe');
+        return $this->redirectToRoute('home');
     }
 }
