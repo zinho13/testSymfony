@@ -122,8 +122,6 @@ class HomeController extends AbstractController
             }
             $dirigeants->setUpdatedAt(new \Datetime());
 
-            {{ dump($dirigeants); }}
-
             $manager->persist($dirigeants);
             $manager->flush();
 
